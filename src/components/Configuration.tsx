@@ -26,12 +26,12 @@ const KEY_LOCAL_STORAGE_ACCOUNT_KEY = "sapp_browser_config_account"
 const KEY_LOCAL_STORAGE_APP_KEY = "sapp_browser_config_app"
 
 const Configuration: React.FC<Props> = ({ onConfigSet }) => {
-    const { safe } = useSafeAppsSDK() 
-    console.log({safe})
+    const { safe } = useSafeAppsSDK()
     const [node, setNode] = useState(localStorage.getItem(KEY_LOCAL_STORAGE_NODE_KEY) || "")
     const [account, setAccount] = useState(safe.safeAddress || localStorage.getItem(KEY_LOCAL_STORAGE_ACCOUNT_KEY) || "")
     const [appUrl, setAppUrl] = useState(localStorage.getItem(KEY_LOCAL_STORAGE_APP_KEY) || "")
     const handleConfig = useCallback(async (node: string, account: string, appUrl: string) => {
+        console.log({ node, account, appUrl })
         localStorage.setItem(KEY_LOCAL_STORAGE_NODE_KEY, node)
         localStorage.setItem(KEY_LOCAL_STORAGE_ACCOUNT_KEY, account)
         localStorage.setItem(KEY_LOCAL_STORAGE_APP_KEY, appUrl)
@@ -41,11 +41,12 @@ const Configuration: React.FC<Props> = ({ onConfigSet }) => {
             onConfigSet(undefined)
         }
     }, [onConfigSet])
+    const accountValue = safe.safeAddress||account
     return (<>
-        <TextField value={node} onChange={(e) => setNode(e.target.value) } label="Node url" />
-        <TextField value={account} onChange={(e) => setAccount(e.target.value) } label="Account address" />
-        <TextField value={appUrl} onChange={(e) => setAppUrl(e.target.value) } label="App url" />
-        <Button size="md" color="primary" onClick={() => handleConfig(node, account, appUrl) }>Start</Button>
+        <TextField value={accountValue} onChange={(e) => setAccount(e.target.value)} label="Account address" disabled={!!safe.safeAddress} />
+        <TextField value={node} onChange={(e) => setNode(e.target.value)} label="Node url" />
+        <TextField value={appUrl} onChange={(e) => setAppUrl(e.target.value)} label="App url" />
+        <Button size="md" color="primary" onClick={() => handleConfig(node, accountValue, appUrl)}>Start</Button>
     </>);
 };
 
