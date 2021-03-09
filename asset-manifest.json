@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "./static/js/main.dcdec208.chunk.js",
+    "main.js.map": "./static/js/main.dcdec208.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.ed14a501.js",
+    "runtime-main.js.map": "./static/js/runtime-main.ed14a501.js.map",
+    "static/js/2.0188c1ee.chunk.js": "./static/js/2.0188c1ee.chunk.js",
+    "static/js/2.0188c1ee.chunk.js.map": "./static/js/2.0188c1ee.chunk.js.map",
+    "index.html": "./index.html",
+    "static/js/2.0188c1ee.chunk.js.LICENSE.txt": "./static/js/2.0188c1ee.chunk.js.LICENSE.txt",
+    "static/media/averta-bold.woff2": "./static/media/averta-bold.8fdcd8d4.woff2",
+    "static/media/averta-normal.woff2": "./static/media/averta-normal.39d04879.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ed14a501.js",
+    "static/js/2.0188c1ee.chunk.js",
+    "static/js/main.dcdec208.chunk.js"
+  ]
+}
