@@ -1,68 +1,23 @@
-import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
-import { Button, Loader, Title } from '@gnosis.pm/safe-react-components';
-import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
+import React, { useState } from 'react';
+import { createStyles, withStyles, WithStyles } from '@material-ui/core';
+import Simulator from './components/Simulator';
+import Configuration, { Config } from './components/Configuration';
 
-const Container = styled.form`
-  margin-bottom: 2rem;
-  width: 100%;
-  max-width: 480px;
+const styles = createStyles({
+  appContainer: {
+    border: 0,
+    frameborder: 0,
+    width: '100%',
+    height: '100%'
+  }
+})
 
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-`;
+interface Props extends WithStyles<typeof styles> { }
 
-const App: React.FC = () => {
-  const { sdk, safe } = useSafeAppsSDK();
-  const [submitting, setSubmitting] = useState(false);
-
-  const submitTx = useCallback(async () => {
-    setSubmitting(true);
-    try {
-      const { safeTxHash } = await sdk.txs.send({
-        txs: [
-          {
-            to: safe.safeAddress,
-            value: '0',
-            data: '0x',
-          },
-        ],
-      });
-      console.log({ safeTxHash });
-      const safeTx = await sdk.txs.getBySafeTxHash(safeTxHash);
-      console.log({ safeTx });
-    } catch (e) {
-      console.error(e);
-    }
-    setSubmitting(false);
-  }, [safe, sdk]);
-
-  return (
-    <Container>
-      <Title size="md">{safe.safeAddress}</Title>
-      {submitting ? (
-        <>
-          <Loader size="md" />
-          <br />
-          <Button
-            size="lg"
-            color="secondary"
-            onClick={() => {
-              setSubmitting(false);
-            }}
-          >
-            Cancel
-          </Button>
-        </>
-      ) : (
-        <Button size="lg" color="primary" onClick={submitTx}>
-          Submit
-        </Button>
-      )}
-    </Container>
-  );
+const App: React.FC<Props> = () => {
+  const [config, setConfig] = useState<Config|undefined>(undefined)
+  if (!config) return (<Configuration onConfigSet={setConfig} />)
+  return (<Simulator account={config.account} node={config.node} appUrl={config.appUrl} resetNode={() => { setConfig(undefined) }} />);
 };
 
-export default App;
+export default withStyles(styles)(App)

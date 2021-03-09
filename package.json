@@ -14,6 +14,10 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/styled-components": "^5.1.2",
+    "ethereumjs-util": "^7.0.9",
+    "ethereumjs-vm": "^4.2.0",
+    "ganache-core": "^2.13.2",
+    "memdown": "^5.1.0",
     "react": "^17.0.1",
     "react-app-rewired": "^2.1.6",
     "react-dom": "^17.0.1",
@@ -24,6 +28,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
+    "deploy": "yarn build && yarn gh-pages -d build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
@@ -48,5 +53,10 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "./"
+  "homepage": "./",
+  "devDependencies": {
+    "@types/memdown": "^3.0.0",
+    "@types/util.promisify": "^1.0.4",
+    "gh-pages": "^3.1.0"
+  }
 }
